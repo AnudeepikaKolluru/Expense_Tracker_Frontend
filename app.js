@@ -8,7 +8,7 @@ let categoryChartInstance = null;
 
 async function fetchPayments() {
   try {
-    const res = await fetch(`http://localhost:5000/api/groups/${currentGroupId}/payments`);
+    const res = await fetch(`https://nodeservice-fykb.onrender.com/api/groups/${currentGroupId}/payments`);
     if (!res.ok) throw new Error(`Failed to fetch payments: ${res.statusText}`);
     const data = await res.json();
     payments = data.payments.map(p => {
@@ -60,7 +60,7 @@ async function deleteParticipant(participantId) {
   if (!confirm('Are you sure you want to delete this participant?')) return;
 
   try {
-    const response = await fetch(`http://localhost:5000/api/participant/${participantId}`, {
+    const response = await fetch(`https://nodeservice-fykb.onrender.com/api/participant/${participantId}`, {
       method: 'DELETE'
     });
 
@@ -95,7 +95,7 @@ const addParticipant = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:5000/api/participant', {
+    const response = await fetch('https://nodeservice-fykb.onrender.com/api/participant', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: participantName, group_id: parseInt(currentGroupId) })
@@ -153,7 +153,7 @@ async function uploadImageForOCR(file) {
     const formData = new FormData();
     formData.append('image', file);
 
-    const response = await fetch('http://localhost:8000/api/ocr-upload', {
+    const response = await fetch('https://ocrserver-q0fi.onrender.com/api/ocr-upload', {
       method: 'POST',
       body: formData
     });
@@ -180,7 +180,7 @@ async function uploadImageForOCR(file) {
 async function fetchParticipants(groupId) {
   console.log("Fetching participants for group:", groupId);
   try {
-    const response = await fetch(`http://localhost:5000/api/groups/${groupId}/participant`);
+    const response = await fetch(`https://nodeservice-fykb.onrender.com/api/groups/${groupId}/participant`);
     if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
     const data = await response.json();
     console.log("Fetched participants:", data);
@@ -205,7 +205,7 @@ function addExpense() {
     return;
   }
 
-  fetch('http://localhost:5000/api/expenses', {
+  fetch('https://nodeservice-fykb.onrender.com/api/expenses', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -283,7 +283,7 @@ if (!SpeechRecognition) {
 // Fetch expenses
 async function fetchExpenses() {
   try {
-    const response = await fetch(`http://localhost:5000/api/groups/${currentGroupId}/expenses`);
+    const response = await fetch(`https://nodeservice-fykb.onrender.com/api/groups/${currentGroupId}/expenses`);
     if (!response.ok) throw new Error(`Failed to fetch expenses: ${response.statusText}`);
     const data = await response.json();
     if (Array.isArray(data.expenses)) {
@@ -535,7 +535,7 @@ async function confirmPayment(index) {
   const label = checkbox.parentElement;
 
   try {
-    const res = await fetch('http://localhost:5000/api/payments', {
+    const res = await fetch('https://nodeservice-fykb.onrender.com/api/payments', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -641,7 +641,7 @@ function updateExpensesTable() {
 async function deleteExpense(expenseId) {
   if (!confirm('Are you sure you want to delete this expense?')) return;
   try {
-    const res = await fetch(`http://localhost:5000/api/expenses/${expenseId}`, {
+    const res = await fetch(`https://nodeservice-fykb.onrender.com/api/expenses/${expenseId}`, {
       method: 'DELETE'
     });
     if (!res.ok) throw new Error(`Status ${res.status}`);
@@ -656,7 +656,7 @@ async function deleteExpense(expenseId) {
 document.getElementById('downloadPdfBtn')
         .addEventListener('click', ()=>{
   const groupId = localStorage.getItem('groupId');
-  window.open(`http://localhost:5000/api/groups/${groupId}/expenses/pdf`, '_blank');
+  window.open(`https://nodeservice-fykb.onrender.com/api/groups/${groupId}/expenses/pdf`, '_blank');
 });
 
 
@@ -792,7 +792,7 @@ window.onload = async function () {
   document.getElementById("groupHeader").innerText = "Group: " + groupName;
 
   try {
-    const response = await fetch("http://localhost:5000/api/login", {
+    const response = await fetch("https://nodeservice-fykb.onrender.com/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ group_name: groupName })
