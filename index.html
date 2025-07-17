@@ -133,7 +133,7 @@
     function login() {
       const groupName = document.getElementById('groupName').value;
       const key = document.getElementById('key').value;
-      fetch('http://localhost:5000/api/login', {
+      fetch('https://nodeservice-fykb.onrender.com/api/login', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ group_name: groupName, key })
       })

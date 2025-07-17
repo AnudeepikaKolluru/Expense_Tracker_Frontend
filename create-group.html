@@ -134,7 +134,7 @@
 
     /* ---- send to backend ---- */
     try {
-      const res  = await fetch('http://localhost:5000/api/createGroup', {
+      const res  = await fetch('https://nodeservice-fykb.onrender.com/api/createGroup', {
         method  : 'POST',
         headers : { 'Content-Type': 'application/json' },
         body    : JSON.stringify({ group_name: groupName, key })
